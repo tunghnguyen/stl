@@ -28,3 +28,50 @@ void selectionSort(int arr[], int n) {
     }
   }
 }
+
+void merge(int arr[], int p, int q, int r) {
+  int nl = q - p + 1;
+  int nr = r - q;
+  int arrl[nl], arrr[nr];
+
+  for (int i = 0; i < nl; ++i) {
+    arrl[i] = arr[p + i];
+  }
+  for (int j = 0; j < nr; ++j) {
+    arrr[j] = arr[q + 1 + j];
+  }
+
+  int i = 0, j = 0;
+  int k = p;
+
+  while (i < nl && j < nr) {
+    if (arrl[i] <= arrr[j]) {
+      arr[k] = arrl[i];
+      ++i;
+    } else {
+      arr[k] = arrr[j];
+      ++j;
+    }
+    ++k;
+  }
+
+  while (i < nl) {
+    arr[k] = arrl[i];
+    ++i;
+    ++k;
+  }
+  while (j < nr) {
+    arr[k] = arrr[j];
+    ++j;
+    ++k;
+  }
+}
+
+void mergeSort(int arr[], int p, int r) {
+  if (p >= r) return;
+  int q = (p + r) / 2;
+
+  mergeSort(arr, p, q);
+  mergeSort(arr, q + 1, r);
+  merge(arr, p, q, r);
+}
